@@ -36,7 +36,7 @@ Remote login useing ssh can be enabled either from `raspi-config` or installing 
 1.  #### Install package for mounting file system of usb-hdd. In my case it is ntfs.
 `sudo apt-get -yf install ntfs-3g`
 
-	> The `-yf` option is for --assume-yes and --fix-broken. [Ref.](https://linux.die.net/man/8/apt-get0)
+> The `-yf` option is for --assume-yes and --fix-broken. [Ref.](https://linux.die.net/man/8/apt-get0)
 
 ### 4. Mount HDD
 1. #### Check the disk config using
