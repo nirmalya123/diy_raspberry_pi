@@ -24,16 +24,20 @@ By default Raspbian comes with default user ```pi``` with password ```raspberry`
 I generally prefer to login to shell used sudo so that I do not need to type sudo every time.
 This can be done using `sudo /bin/bash`.
 Alternatively you can use the general way.
-1.	#### Update and upgrade the current installation to the latest version-
+
+1.  #### Update and upgrade the current installation to the latest version-
 	```
 	sudo apt-get update
 	sudo apt-get upgrade
 	```
-1.  #### Enable ssh login
+
+2.  #### Enable ssh login
 Remote login useing ssh can be enabled either from `raspi-config` or installing `openssh-server` using `sudo apt-get install openssh-server`.
-1.  #### Install packages for sharing files and folders
+
+3.  #### Install packages for sharing files and folders
 `sudo apt-get -yf install samba samba-common-bin`
-1.  #### Install package for mounting file system of usb-hdd. In my case it is ntfs.
+
+4.  #### Install package for mounting file system of usb-hdd. In my case it is ntfs.
 `sudo apt-get -yf install ntfs-3g`
 
 > The `-yf` option is for --assume-yes and --fix-broken. [Ref.](https://linux.die.net/man/8/apt-get0)
@@ -46,11 +50,11 @@ Remote login useing ssh can be enabled either from `raspi-config` or installing 
 /dev/sda2: LABEL="New Volume" UUID="D*****CC5CDC***3" TYPE="ntfs" PARTUUID="d9****84-02"
 ```
 	Note the `UUID`. In some cases I found usage of `PARTUUID`
-1. #### Create folder for mounting
+2. #### Create folder for mounting
 	`mkdir -p /media/HDD1`
 
 	The `-p` option created all the parent directories if they do not exist. Generally mount points are in `/mnt` or `/media`.
-1. #### Mount the hdd
+3. #### Mount the hdd
 	`sudo mount -t auto /dev/sda2 /media/HDD1`
 
 	Check if mount is successful using `ls /media/HDD1`. For success the content of the disk will be displayed.
@@ -67,7 +71,7 @@ Remote login useing ssh can be enabled either from `raspi-config` or installing 
 
 ### 4. Configure samba
 1. Open `smb.conf` using `sudo nono -Bw /etc/samba/smb.conf`
-1. Append as per the below block-
+2. Append as per the below block-
 	```
 	[RaspberryPi NAS]
 		comment = NAS
@@ -79,9 +83,9 @@ Remote login useing ssh can be enabled either from `raspi-config` or installing 
 		directory mask = 0700
 	```
 	> `public = no` will ask for username and password whenever connection would be made. `public = yes` will directly give access to the content without any authentication.
-1. Save and exit the file using `CTRL+X`.
-1. Add the user in the samba database- `sudo smbpasswd - a <user1_name>`.
-1. Restart the samba service- `sudo service smbd restart`. If that does not work you may try `sudo /etc/init.d/samba restart`.
+3. Save and exit the file using `CTRL+X`.
+4. Add the user in the samba database- `sudo smbpasswd - a <user1_name>`.
+5. Restart the samba service- `sudo service smbd restart`. If that does not work you may try `sudo /etc/init.d/samba restart`.
 
 ### 5. Connect from Windows
 From **This PC** got to **Map network drive**. In the option under the **Computer** tab you can either type in the share location with IP or can browse to that network location. Enter the username and password when asked. The location would be added as a new drive in the computer.
