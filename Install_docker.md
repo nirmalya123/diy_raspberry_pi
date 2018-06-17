@@ -1,11 +1,14 @@
 # Docker
 Created Sunday 10 June 2018
 
-**Prerequisite**
-
+### For Ubuntu
 1. [Ubuntu Version - 18.04 LTS Bionic Beaver](https://www.ubuntu.com/download/desktop)
-1. [Official Docker installation guide](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+1. [Official Docker installation guide for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 1. Apt in Ubuntu has alternate **docker.io**. The docker mentioned here referes to https://www.docker.com.
+
+### For Raspbian
+1. [Raspbian Stretch](https://www.raspberrypi.org/downloads/raspbian/)
+1. [Official Docker installtion guide for Raspbian](https://docs.docker.com/install/linux/docker-ce/debian/)
 
 #### Uninstall older versions
 ```
@@ -16,24 +19,27 @@ sudo apt-get remove docker docker-engine docker.io
 sudo apt list --installed | grep docker
 ```
 After installation the output in my system for this command was -
-> docker-ce/bionic,now 18.05.0~ce~3-0~ubuntu amd64 [installed]
+| Distro | Output |
+| --- | --- |
+| Ubuntu | `docker-ce/bionic,now 18.05.0~ce~3-0~ubuntu amd64 [installed]` |
 
-
-The contents of **/var/lib/docker/**, including images, containers, volumes, and networks, are preserved.
-
+Evan after removing docker using the above mentioned steps the contents of **/var/lib/docker/**, including images, containers, volumes, and networks, are preserved.
 
 ## **Main installtion steps**
 ---
 
 ### Allow apt to use repository over https
-```
-sudo apt-get -yf install apt-transport-https ca-certificates curl software-properties-common
-```
+| Distro | Command |
+| --- | --- |
+| Ubuntu | `sudo apt-get -yf install apt-transport-https ca-certificates curl software-properties-common`|
+| Raspbian | `sudo apt-get -yf install apt-transport-https ca-certificates curl gnupg2 software-properties-common` | 
 
 ### Add Docker's official GPG key
-```
-curl -fsSL <https://download.docker.com/linux/ubuntu/gpg> | sudo apt-key add -
-```
+| Distro | Command |
+| --- | --- |
+| Ubuntu | `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -` |
+| Raspbian | `curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo apt-key add -` |
+
 Verify the key 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88
 ```
 sudo apt-key fingerprint 0EBFCD88
@@ -52,11 +58,12 @@ dpkg --print-architecture
 
 `egde` releases are monthly compared to quarterly `stable`. For more info about this refer [here](https://docs.docker.com/install/).
 
-**For x86_64**
-```
-sudo add-apt-repository "deb [arch=amd64] <https://download.docker.com/linux/ubuntu> $(lsb_release -cs) stable"
-```
-In my case there were some issue while using `stable` only. As it is quite early in Ubuntu18. After some searching I had to add the `edge` as well. 
+| Distro | Command |
+| --- | --- |
+| Ubuntu **x86_64** | `sudo add-apt-repository "deb [arch=amd64] <https://download.docker.com/linux/ubuntu> $(lsb_release -cs) stable"`
+| Raspbian **armhf** | `echo "deb [arch=armhf] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list` |
+
+In my case there were some issue with the Ubuntu installation while using only `stable`. As it is quite early in Ubuntu18. After some searching I had to add the `edge` as well. 
 ```
 sudo add-apt-repository "deb [arch=amd64] <https://download.docker.com/linux/ubuntu> $(lsb_release -cs) stable edge"
 ```
@@ -85,10 +92,12 @@ sudo service docker status
 
 ### Verify installation
 The Docker daemon starts automatically.
-```
-sudo docker run hello-world
-```
-This command will automaticall pull the hello-world container image if mot present locally and run it.
+| Distro | Command |
+| --- | --- |
+| Ubuntu | `sudo docker run hello-world` |
+| Raspbian | `sudo docker run armhf/hello-world` |
+
+This command will automatically pull the hello-world container image if mot present locally and run it.
 
 ## Docker help
 ```
@@ -100,7 +109,7 @@ To stop starting of dockerd at boottime
 ```
 sudo systemctl disable docker
 ```
-To enable docker to start at boottime
+### To enable docker to start at boottime
 ```
 sudo systemctl enable docker
 ```
