@@ -39,7 +39,7 @@ Verify the key 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88
 sudo apt-key fingerprint 0EBFCD88
 ```
 
-**You can serach [here](https://download.docker.com/linux/) for the relevant version for your system.
+You can serach [here](https://download.docker.com/linux/) for the relevant version for your system.
 
 ## Setup repository
 There are three types of repositories - `stable`, `edge` and `test`. `stable` reposioty is needed even if `edge` or `test` are used. 
