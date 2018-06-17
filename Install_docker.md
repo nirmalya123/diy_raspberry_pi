@@ -37,8 +37,8 @@ Evan after removing docker using the above mentioned steps the contents of **/va
 ### Add Docker's official GPG key
 | Distro | Command |
 | --- | --- |
-| Ubuntu | `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -` |
-| Raspbian | `curl -fsSL https://download.docker.com/linux/raspbian/gpg | sudo apt-key add -` |
+| Ubuntu | `curl -fsSL https://download.docker.com/linux/ubuntu/gpg \| sudo apt-key add -` |
+| Raspbian | `curl -fsSL https://download.docker.com/linux/raspbian/gpg \| sudo apt-key add -` |
 
 Verify the key 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88
 ```
@@ -60,8 +60,8 @@ dpkg --print-architecture
 
 | Distro | Command |
 | --- | --- |
-| Ubuntu **x86_64** | `sudo add-apt-repository "deb [arch=amd64] <https://download.docker.com/linux/ubuntu> $(lsb_release -cs) stable"`
-| Raspbian **armhf** | `echo "deb [arch=armhf] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list` |
+| Ubuntu **x86_64** | `sudo add-apt-repository "deb [arch=amd64] <https://download.docker.com/linux/ubuntu> $(lsb_release -cs) stable"`|
+| Raspbian **armhf** | `echo "deb [arch=armhf] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \| sudo tee /etc/apt/sources.list.d/docker.list` |
 
 In my case there were some issue with the Ubuntu installation while using only `stable`. As it is quite early in Ubuntu18. After some searching I had to add the `edge` as well. 
 ```
