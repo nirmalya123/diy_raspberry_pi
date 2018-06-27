@@ -19,6 +19,8 @@ By default Raspbian comes with default user ```pi``` with password ```raspberry`
 	- Modify the line as - `pi ALL=(ALL) PASSWD: ALL`
 	- Save end exit with `CTRL+X`
 1. Remove the default `pi` user- `sudo deluser -remove-home pi`
+1. Verify the list of local users with `cut -d: -f1 /etc/passwd`. If ```pi``` user exits then logout and login with the new user and try removing it again.
+1. Verify the list of sudoers either using `grep -Po '^sudo.+:\K.*$' /etc/group` or `grep '^sudo:.*$' /etc/group | cut -d: -f4`.
 
 ### 3. Installing required packages
 I generally prefer to login to shell used sudo so that I do not need to type sudo every time.
